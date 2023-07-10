@@ -25,6 +25,7 @@ namespace TaskMgt.Controllers
             return Ok(_taskService.GetTasks());
         }
 
+        [AllowAnonymous]
         [HttpPost("create-task")]
         public IActionResult Post([FromBody] Tasks task)
         {
