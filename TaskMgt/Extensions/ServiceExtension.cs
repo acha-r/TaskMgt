@@ -22,6 +22,7 @@ namespace TaskMgt.Extensions
 
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<ITaskService, TaskServices>();
         }
     }

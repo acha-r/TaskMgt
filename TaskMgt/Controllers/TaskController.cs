@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 using TaskMgt.Models;
 using TaskMgt.Services;
 
 namespace TaskMgt.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
@@ -15,6 +18,7 @@ namespace TaskMgt.Controllers
             _taskService = service;
         }
 
+        [AllowAnonymous]
         [HttpGet("get-tasks")]
         public IActionResult Get()
         {
