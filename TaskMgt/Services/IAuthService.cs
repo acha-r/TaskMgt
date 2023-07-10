@@ -4,6 +4,6 @@ namespace TaskMgt.Services
 {
     public interface IAuthService
     {
-        Task<string> Register(RegisterDto register, string role);
+        Task<string> Register(RegisterDto register);
     }
 }

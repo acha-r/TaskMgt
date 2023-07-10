@@ -19,9 +19,9 @@ namespace TaskMgt.Controllers
         }
 
         [HttpPost("create-user")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto register, string role)
+        public async Task<IActionResult> Register([FromBody] RegisterDto register)
         {
-            return Ok(await _authService.Register(register, role));
+            return Ok(await _authService.Register(register));
 
 
         }

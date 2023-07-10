@@ -18,14 +18,12 @@ namespace TaskMgt.Services
             _roleManager = roleManager;
         }
 
-        public async Task<string> Register(RegisterDto register, string role)
+        public async Task<string> Register(RegisterDto register)
         {
             var existingUser = _userManager.FindByEmailAsync(register.EmailAddress);
             if (existingUser != null)
                 throw new Exception("User with email address exists");
 
-            if (await _roleManager.RoleExistsAsync(role))
-            {
                 ApplicationUser newUser = new()
                 {
                     Email = register.EmailAddress,
@@ -36,17 +34,11 @@ namespace TaskMgt.Services
                 var result = await _userManager.CreateAsync(newUser, register.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(newUser, role);
+                    await _userManager.AddToRoleAsync(newUser, "User");
                     return "User created";
                 }
                 else
                     return "An error occures";
-
-            }
-            else
-                return ("Role does not exist");
-
-
 
 
 
