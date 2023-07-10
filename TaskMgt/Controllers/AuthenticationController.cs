@@ -22,8 +22,6 @@ namespace TaskMgt.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDto register)
         {
             return Ok(await _authService.Register(register));
-
-
         }
 
     }
