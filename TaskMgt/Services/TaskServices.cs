@@ -1,4 +1,5 @@
-﻿using TaskMgt.Context;
+﻿using Microsoft.AspNetCore.Identity;
+using TaskMgt.Context;
 using TaskMgt.Models;
 
 namespace TaskMgt.Services
@@ -6,18 +7,24 @@ namespace TaskMgt.Services
     public class TaskServices : ITaskService
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TaskServices(AppDbContext context)
+
+        public TaskServices(AppDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-        public Tasks AssignTask(int taskId, string email)
+        public async Task<Tasks> AssignTask(int taskId, string email)
         {
-            var task = _context.Tasks.Find(taskId) ?? throw new KeyNotFoundException("Invalid task Id");
+            var task = await _context.Tasks.FindAsync(taskId) ?? throw new KeyNotFoundException("Invalid task Id");
             task.Owner = email;
 
+            var user = await _userManager.FindByEmailAsync(email);
+            user.Tasks.Add(task);
+
             _context.Tasks.Update(task);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return task;
              
         }

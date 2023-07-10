@@ -7,6 +7,6 @@ namespace TaskMgt.Services
         Tasks CreateTask(Tasks task);
         IEnumerable<Tasks> GetTasks();
         void DeleteTask(int taskId);
-        Tasks AssignTask(int taskId, string email);
+        Task<Tasks> AssignTask(int taskId, string email);
     }
 }
