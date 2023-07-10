@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskMgt.Context;
+using TaskMgt.Services;
 
 namespace TaskMgt.Extensions
 {
@@ -21,6 +22,7 @@ namespace TaskMgt.Extensions
 
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddTransient<ITaskService, TaskServices>();
         }
     }
 }
